@@ -1,0 +1,69 @@
+;; This Clojure REPL is divided into two areas, top and bottom, delimited by a line of dashes. The top area shows code that's been executed in the REPL, standard out from running code, and the results of executed expressions. The bottom area allows Clojure code to be entered. The code can be executed by pressing shift+enter.
+
+;; Try it now by typing (+ 1 1) in the bottom section and pressing shift+enter.
+
+;; Working in another Clojure file and sending forms to the REPL is the most efficient way to work. Use the following key bindings to send code to the REPL. See the settings for more keybindings.
+
+;; ctrl-, then b - execute block. Finds the block of Clojure code your cursor is in and executes that.
+
+;; Try it now. Put your cursor inside this block and press ctrl and comma together,
+;; release, then press b.
+(+ 2 3)
+
+;; ctrl-, s - Executes the selection. Sends the selected text to the REPL.
+
+;; Try it now. Select these three lines and press ctrl and comma together,
+;; release, then press s.
+(println "hello 1")
+(println "hello 2")
+(println "hello 3")
+
+;; You can disable this help text in the settings.
+Starting REPL with lein in /Users/adrienne/personal_projects/game_of_life
+nREPL server started on port 49588 on host 127.0.0.1 - nrepl://127.0.0.1:49588
+user=>
+Refreshing code...
+No user namespace defined. Defaulting to clojure.tools.namespace.repl/refresh.
+
+clojure.tools.namespace.repl not available. Add as a dependency to allow refresh.
+Refresh Warning: IllegalArgumentException No such namespace: clojure.tools.namespace.repl  clojure.lang.Var.find (Var.java:141)
+(make-array Integer/TYPE 3 2)
+user=> #object["[[I" 0x235b5294 "[[I@235b5294"]
+repeat "x" (take  5)
+user=> #object[clojure.core$take$fn__4824 0x59224fb3 "clojure.core$take$fn__4824@59224fb3"]
+(take 5 (repeat "x"))
+user=> ("x" "x" "x" "x" "x")
+(for [y (range 5)]
+  (take 5 (repeat 0 )))
+user=> ((0 0 0 0 0) (0 0 0 0 0) (0 0 0 0 0) (0 0 0 0 0) (0 0 0 0 0))
+(for [y (range 5)]
+  (take 5 (repeat 0 )))
+user=> ((0 0 0 0 0) (0 0 0 0 0) (0 0 0 0 0) (0 0 0 0 0) (0 0 0 0 0))
+'(+ 1 2 3)
+user=> (+ 1 2 3)
+(+ 1 2 3)
+user=> 6
+(type '(+ 1 2 3))
+user=> clojure.lang.PersistentList
+(type '+)
+user=> clojure.lang.Symbol
+(type +)
+user=> clojure.core$_PLUS_
+(type print-row)
+user=> CompilerException java.lang.RuntimeException: Unable to resolve symbol: print-row in this context, compiling:(/private/var/folders/pp/fv98jmv14jg41k2q1v138t680000gn/T/form-init2561215001028153968.clj:1:5) 
+(ns game-of-life.core)
+
+(defn make-board [height width]
+  (for [y (range height)]
+    (take width (repeat 0 ))))
+
+(defn print-row [row]
+  (clojure.string/join " " row))
+
+(defn print-board [board]
+  ())
+game-of-life.core=> #'game-of-life.core/print-board
+(type print-row)
+game-of-life.core=> game_of_life.core$print_row
+--------------------
+(get-in [[1]] [0 0])
