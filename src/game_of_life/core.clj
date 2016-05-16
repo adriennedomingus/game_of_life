@@ -19,10 +19,16 @@
 (defn alive? [board [x y]]
   (get-in board [y x]))
 
-
 (defn count-living-neighbors [board coord]
   (count (filter (partial alive? board)
                  (neighbors coord))))
+
+(defn next-state [board coord]
+  (let [live-count (count-living-neighbors board coord)]
+    (cond
+    (< live-count 2) false
+    (< live-count 4) true
+    :else false)))
 
 ;; evaluate cell's current state
 ;; know x y coordinates of current cell
