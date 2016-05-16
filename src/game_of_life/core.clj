@@ -2,7 +2,7 @@
 
 (defn make-board [height width]
   (for [y (range height)]
-    (take width (repeat 0 ))))
+    (take width (repeat 0))))
 
 (defn print-row [row]
   (clojure.string/join " " row))
@@ -16,8 +16,13 @@
         :when (not (= [0 0] [x-shift y-shift]))]
     [(+ x x-shift) (+ y y-shift)]))
 
-(defn alive? [board [ x y ]]
-  ( get-in board [ y x ]))
+(defn alive? [board [x y]]
+  (get-in board [y x]))
+
+
+(defn count-living-neighbors [board coord]
+  (count (filter (partial alive? board)
+                 (neighbors coord))))
 
 ;; evaluate cell's current state
 ;; know x y coordinates of current cell
