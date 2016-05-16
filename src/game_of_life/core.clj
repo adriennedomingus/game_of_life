@@ -30,6 +30,13 @@
     (< live-count 4) true
     :else false)))
 
+(defn next-board [board]
+  (map-indexed (fn [y row]
+                 (map-indexed (fn [x state]
+                                (next-state board [x y]))
+                              row ))
+               board))
+
 ;; evaluate cell's current state
 ;; know x y coordinates of current cell
 ;; find all cell's neighbors

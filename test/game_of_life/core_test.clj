@@ -34,3 +34,7 @@
 (deftest test-next-state-for-board-coord
   (is (= true (next-state test-board [ 1 1 ])))
   (is (= true (next-state test-board [ 0 0 ] ))))
+
+(deftest test-next-state-for-board
+  (is (= [[true true] [true true]]
+         (next-board test-board))))
