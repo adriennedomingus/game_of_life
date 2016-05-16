@@ -16,6 +16,9 @@
         :when (not (= [0 0] [x-shift y-shift]))]
     [(+ x x-shift) (+ y y-shift)]))
 
+(defn alive? [board [ x y ]]
+  ( get-in board [ y x ]))
+
 ;; evaluate cell's current state
 ;; know x y coordinates of current cell
 ;; find all cell's neighbors

@@ -21,3 +21,7 @@
 
 ; (deftest processes-board
   ; (is (= test-board (circle test-board))))
+
+(deftest check-if-alive?
+  (is (= true ( alive? test-board [ 0 0 ])))
+  (is (= nil ( alive? test-board [ -1 -1 ]))))
