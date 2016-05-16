@@ -17,7 +17,24 @@
   (is (= 8 (count (neighbors [0 0])))))
 
 (def test-board
-  [[true true] [true true]])
+  [[true true] [true false]])
 
 ; (deftest processes-board
   ; (is (= test-board (circle test-board))))
+
+(deftest check-if-alive?
+  (is (= true ( alive? test-board [ 0 0 ])))
+  (is (= nil ( alive? test-board [ -1 -1 ])))
+  (is (= false ( alive? test-board [ 1 1 ]))))
+
+(deftest test-count-living-neighbors
+  (is ( = 2 ( count-living-neighbors test-board [ 0 0 ])))
+  (is ( = 3 ( count-living-neighbors test-board [ 1 1 ] ))))
+
+(deftest test-next-state-for-board-coord
+  (is (= true (next-state test-board [ 1 1 ])))
+  (is (= true (next-state test-board [ 0 0 ] ))))
+
+(deftest test-next-state-for-board
+  (is (= [[true true] [true true]]
+         (next-board test-board))))
