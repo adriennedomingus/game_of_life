@@ -40,7 +40,10 @@
   (let [board [[true true] [false false]]]
     (is ( = [[false false] [false false]] (next-board board)))))
 
-(deftest test-run-multiple-generations
-  (let [board [[false false false] [true true true] [false false false]]]
-    (is ( propagate board 30)))
-  )
+
+(deftest test-no-bugs
+  (let [board [[false false true] [false false true] [true false false]]]
+    (is ( = [[false false false] [false true false] [false false false]] (next-board board)))))
+
+(deftest test-run
+  (run))
