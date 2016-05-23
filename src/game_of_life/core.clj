@@ -1,11 +1,11 @@
 (ns game-of-life.core)
 
 (defn make-board [height width]
-  (for [y (range height)]
-    (take width (repeat 0))))
+  (vec (for [y (range height)]
+    (vec (take width (repeatedly (fn [] (rand-nth [ true false false]))))))))
 
 (defn print-row [row]
-  (clojure.string/join " " row))
+  (clojure.string/join "" (map (fn [cell] (if cell "0" " ")) row)))
 
 (defn print-board [board]
   (clojure.string/join "\n" (map print-row board)))
@@ -24,21 +24,28 @@
                  (neighbors coord))))
 
 (defn next-state [board coord]
-  (let [live-count (count-living-neighbors board coord)]
+  (let [live-count (count-living-neighbors board coord)
+        currently-living (alive? board coord) ]
     (cond
-    (< live-count 2) false
-    (< live-count 4) true
-    :else false)))
+      (and (= live-count 2) (not currently-living)) false
+      (< live-count 2) false
+      (< live-count 4) true
+      :else false)))
 
 (defn next-board [board]
-  (map-indexed (fn [y row]
-                 (map-indexed (fn [x state]
+  (vec (map-indexed (fn [y row]
+                 (vec (map-indexed (fn [x state]
                                 (next-state board [x y]))
-                              row ))
-               board))
+                              row )))
+               board)))
 
-;; evaluate cell's current state
-;; know x y coordinates of current cell
-;; find all cell's neighbors
-;; count living neighbors
-;; evaluate rules for next state
+(defn propagate [board ngen]
+  (loop [board board ngen ngen]
+    (if (= ngen 0)
+      "Done"
+
+      (do (println (Thread/sleep 100) (str  "\u001b[2J" (print-board board))) (recur (next-board board) (dec ngen))))))
+
+(defn run []
+  (let [board (make-board 30 30)]
+    (propagate board 50)))
