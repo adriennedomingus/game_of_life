@@ -7,20 +7,17 @@
   (is (= 4 (count (first(make-board 5 4))))))
 
 (deftest represents-row
-  (is (= "0 0 0 0 0" (print-row [0 0 0 0 0]))))
+  (is (= "00000" (print-row [true true true true true]))))
 
 (deftest represents-board
   (let [board (make-board 2 2)]
-    (is (= "0 0\n0 0" (print-board board)))))
+    (is (= "  \n  " (print-board board)))))
 
 (deftest find-neighbors
   (is (= 8 (count (neighbors [0 0])))))
 
 (def test-board
   [[true true] [true false]])
-
-; (deftest processes-board
-  ; (is (= test-board (circle test-board))))
 
 (deftest check-if-alive?
   (is (= true ( alive? test-board [ 0 0 ])))
@@ -38,3 +35,12 @@
 (deftest test-next-state-for-board
   (is (= [[true true] [true true]]
          (next-board test-board))))
+
+(deftest test-they-all-die
+  (let [board [[true true] [false false]]]
+    (is ( = [[false false] [false false]] (next-board board)))))
+
+(deftest test-run-multiple-generations
+  (let [board [[false false false] [true true true] [false false false]]]
+    (is ( propagate board 30)))
+  )
