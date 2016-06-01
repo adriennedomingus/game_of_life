@@ -1,3 +1,4 @@
+
 (ns game-of-life.core)
 
 (defn make-board [height width]
@@ -33,19 +34,22 @@
       :else false)))
 
 (defn next-board [board]
-  (vec (map-indexed (fn [y row]
-                 (vec (map-indexed (fn [x state]
+  (vec (pmap (fn [y row]
+                 (vec (map (fn [x state]
                                 (next-state board [x y]))
-                              row )))
-               board)))
+                                (range (count row)) row )))
+             (range (count board)) board)))
 
 (defn propagate [board ngen]
   (loop [board board ngen ngen]
     (if (= ngen 0)
       "Done"
 
-      (do (println (Thread/sleep 100) (str  "\u001b[2J" (print-board board))) (recur (next-board board) (dec ngen))))))
+      (do (println (str  "\u001b[2J" (print-board board))) (recur (next-board board) (dec ngen))))))
 
 (defn run []
   (let [board (make-board 30 30)]
     (propagate board 50)))
+
+(def big-board (make-board 500 500))
+(time (do (next-board big-board) "done"))
